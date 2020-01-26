@@ -68,6 +68,10 @@
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+    <div class="form-row">
+        <label for="node-input-verbose"><i class="fa fa-list"></i> <span>Show query</span></label>
+        <input type="checkbox" id="node-input-verbose" style="width: auto;">
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="mysql">
@@ -88,7 +92,8 @@
         color:"#e97b00",
         defaults: {
             mydb: {type:"MySQLdatabase",required:true},
-            name: {value:""}
+            name: {value:""},
+            verbose: {value: false}
         },
         inputs:1,
         outputs:1,
@@ -99,6 +104,13 @@
         },
             labelStyle: function() {
             return this.name?"node_label_italic":"";
+        },
+        oneditprepare: function() {
+            if (this.verbose === "true" || this.verbose === true) {
+                $("#node-input-verbose").prop("checked",true);
+            } else {
+                $("#node-input-verbose").prop("checked",false);
+            }
         }
     });
 </script>

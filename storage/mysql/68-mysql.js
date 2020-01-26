@@ -105,7 +105,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,n);
         this.mydb = n.mydb;
         this.mydbConfig = RED.nodes.getNode(this.mydb);
-        
+        this.verbose = n.verbose;
         if (this.mydbConfig) {
             this.mydbConfig.connect();
             var node = this;
@@ -125,7 +125,9 @@ module.exports = function(RED) {
                 if (node.mydbConfig.connected) {
                     if (typeof msg.topic === 'string') {
                         var bind = Array.isArray(msg.payload) ? msg.payload : [];
-                        node.mydbConfig.connection.query(msg.topic, bind, function(err, rows) {
+                        var query = node.mydbConfig.connection.format(msg.topic, bind);
+                        if (this.verbose) { node.warn(query); }
+                        node.mydbConfig.connection.query(query, function(err, rows) {
                             if (err) {
                                 node.error(err,msg);
                                 status = {fill:"red",shape:"ring",text:"Error"};
