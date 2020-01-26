@@ -3,7 +3,8 @@
     "version": "0.0.19",
     "description": "A Node-RED node to read and write to a MySQL database",
     "dependencies": {
-        "mysql": "^2.17.1"
+        "mysql": "^2.17.1",
+        "fs": "^0.0.1-security"
     },
     "repository": {
         "type": "git",

@@ -24,6 +24,16 @@
         <label for="node-config-input-tz"><i class="fa fa-clock-o"></i> Timezone</label>
         <input type="text" id="node-config-input-tz">
     </div>
+    <div class="form-row">
+        <label for="node-config-input-ssl-ca"><i class="fa fa-file-o"></i> CA certificate</label>
+        <input type="text" id="node-config-input-sslca">
+    </div>
+    <div class="form-tips">
+        <span data-i18n="node-red:file.tip">
+            Tip: The filename should be an absolute path, otherwise it will be relative to the working directory of the Node-RED process.
+        </span>
+    </div>
+
 </script>
 
 <script type="text/javascript">
@@ -35,7 +45,8 @@
             //user: {value:"",required:true},
             //pass: {value:"",required:true},
             db: {value:"",required:true},
-            tz: {value:""}
+            tz: {value:""},
+            sslca: {value: ""}
         },
         credentials: {
             user: {type: "text"},

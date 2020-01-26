@@ -3,11 +3,13 @@ module.exports = function(RED) {
     "use strict";
     var reconnect = RED.settings.mysqlReconnectTime || 20000;
     var mysqldb = require('mysql');
+    const fs = require('fs');
 
     function MySQLNode(n) {
         RED.nodes.createNode(this,n);
         this.host = n.host;
         this.port = n.port;
+        this.sslca = n.sslca;
         this.tz = n.tz || "local";
 
         this.connected = false;
@@ -41,7 +43,8 @@ module.exports = function(RED) {
                     timezone : node.tz,
                     insecureAuth: true,
                     multipleStatements: true,
-                    connectionLimit: 25
+                    connectionLimit: 25,
+                    ssl : node.sslca ? {ca : fs.readFileSync(node.sslca)} : undefined
                 });
             }
 
@@ -102,7 +105,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,n);
         this.mydb = n.mydb;
         this.mydbConfig = RED.nodes.getNode(this.mydb);
-
+        
         if (this.mydbConfig) {
             this.mydbConfig.connect();
             var node = this;

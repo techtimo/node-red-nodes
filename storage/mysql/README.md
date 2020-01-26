@@ -17,9 +17,9 @@ Allows basic access to a MySQL database.
 
 This node uses the <b>query</b> operation against the configured database. This does allow both INSERTS and DELETES.
 
-By it's very nature it allows SQL injection... so <i>be careful out there...</i>
-
 The `msg.topic` must hold the <i>query</i> for the database, and the result is returned in `msg.payload`.
+
+If `msg.payload` is an array it can be used to bind parameter to the query. For Details see the <a href="https://www.npmjs.com/package/mysql#escaping-query-values" target="_new">mysql documentation on npm</a>
 
 Typically the returned payload will be an array of the result rows.
 
